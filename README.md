@@ -29,7 +29,7 @@
 
 6. Install necessary Python libraries for AI and music generation using `pip`:
     ```sh
-    pip install tensorflow torch magenta music21 pyqt5 numpy scipy mido pretty_midi
+    pip install tensorflow-macos tensorflow-metal torch magenta music21 pyqt5 numpy scipy mido pretty_midi
     ```
 
 7. Create a `requirements.txt` file to list all installed dependencies:
@@ -64,3 +64,37 @@
     ```
 
 The app will open a window with a user interface created using PyQt. You can generate, play, and save music using the provided buttons and sliders.
+
+## Packaging the App Using PyInstaller
+
+1. Install PyInstaller in your virtual environment:
+    ```sh
+    pip install pyinstaller
+    ```
+
+2. Create a PyInstaller spec file to include the necessary files and directories:
+    ```sh
+    pyinstaller --name ai_music_generator --onefile --add-data "packages:packages" --add-data "requirements.txt:." --add-data "download_dependencies.py:." main.py
+    ```
+
+3. This will generate a standalone executable in the `dist` directory.
+
+## Optimizing the App for Apple M1 Hardware
+
+1. Ensure you are using the latest versions of Python libraries that support Apple M1 hardware natively, such as TensorFlow and PyTorch. These libraries have been optimized for the M1 architecture and can provide significant performance improvements.
+
+2. Use the `tensorflow-macos` and `tensorflow-metal` packages for TensorFlow, which are specifically designed for Apple Silicon. You can install them using the following commands:
+    ```sh
+    pip install tensorflow-macos
+    pip install tensorflow-metal
+    ```
+
+3. Optimize the AI model for performance by using techniques such as model quantization, pruning, and using mixed precision training. These techniques can help reduce the model size and improve inference speed on Apple M1 hardware.
+
+4. Ensure that the `requirements.txt` file includes the optimized versions of the libraries for Apple M1 hardware. Update the file to include `tensorflow-macos` and `tensorflow-metal` instead of the standard `tensorflow` package.
+
+5. Test the app thoroughly on Apple M1 hardware to identify any performance bottlenecks and optimize the code accordingly. Use profiling tools to analyze the performance and make necessary adjustments.
+
+6. Consider using the `multiprocessing` module in Python to take advantage of the multiple cores available on Apple M1 hardware. This can help improve the performance of tasks that can be parallelized, such as music generation and processing.
+
+7. Ensure that the app is compiled and packaged using tools that support Apple M1 hardware, such as PyInstaller. This will ensure that the app runs efficiently on the target hardware.
